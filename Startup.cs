@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace netcoretask
 {
@@ -20,6 +21,9 @@ namespace netcoretask
         
         public void ConfigureServices(IServiceCollection services){
             services.AddMvc();
+
+            var connection = @"Server=afismahsqltest;Database=NetCoreTask;User Id=appadmin;Password=appadmin;";
+            services.AddDbContext<TaskContext>(options => options.UseSqlServer(connection));
         }
 
         private IConfigurationRoot Configuration;

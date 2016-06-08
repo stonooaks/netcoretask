@@ -1,0 +1,17 @@
+{
+  "name": "netcoretask",
+  "homepage": "https://github.com/stonooaks/netcoretask",
+  "authors": [
+    "mah264 <hughesm@musc.edu>"
+  ],
+  "description": "Task Manager built in NetCore",
+  "main": "program.cs",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
