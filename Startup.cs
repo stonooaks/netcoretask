@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace netcoretask
 {
@@ -19,11 +20,15 @@ namespace netcoretask
             Configuration = builder.Build();
         }
         
+        //This method gets called by the runtime. Use this method to add services
         public void ConfigureServices(IServiceCollection services){
             services.AddMvc();
 
-            var connection = @"Server=afismahsqltest;Database=NetCoreTask;User Id=appadmin;Password=appadmin;";
-            services.AddDbContext<TaskContext>(options => options.UseSqlServer(connection));
+            var connection = @"Server=afismahsqltest;Database=NetCoreTask;";
+            services
+                .AddEntityFramework()
+                .AddEntityFrameworkSqlServer()
+                .AddDbContext<TaskContext>(options => options.UseSqlServer(connection));
         }
 
         private IConfigurationRoot Configuration;
@@ -37,13 +42,8 @@ namespace netcoretask
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+            app.UseMvc();
+       
 
             app.Run(async context => {
                 await context.Response.WriteAsync("There is a problem with MVC");
